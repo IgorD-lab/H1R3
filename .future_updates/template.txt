@@ -1,0 +1,79 @@
+# Igor Dobrić
+📞 +381 63 510038 | 📧 igordobricc@gmail.com  
+🔗 [LinkedIn](https://www.linkedin.com/in/igor-dobric/) | 💻 [GitHub](https://github.com/IgorD-lab)
+
+---
+
+## 🎯 Summary
+Computer Science student with a strong foundation in Python-based backend development and real-world project experience in automation, web scraping, and API design. Seeking an internship or junior role in backend engineering to apply practical skills in scalable systems and RESTful application design.
+
+---
+
+## 🛠 Technical Skills
+
+**Languages:** Python (advanced), C, C++, JavaScript (basic), HTML/CSS  
+**Frameworks:** Django, Flask, Pandas  
+**Databases:** SQLite, PostgreSQL (basic)  
+**Tools:** Git, Linux, REST APIs, Docker (learning)  
+**Concepts:** MVC, CRUD, OOP, web scraping, API integration  
+**Certifications:** CS50x, CS50p, CS50w (Harvard)
+
+---
+
+## 💼 Experience
+
+### Technical Support Assistant  
+*Family Firm (Freelance) – Remote | 2019–Present*  
+- Resolved daily hardware/software issues for 10+ users across multiple office locations  
+- Maintained office IT systems, replaced equipment, and ensured smooth technical operations  
+- Helped streamline procurement of laptops and peripherals for non-technical stakeholders
+
+### Digital Sales & Communication Specialist  
+*Private Contract – Remote | 2021–2023*  
+- Increased digital product conversions through persuasive messaging and tailored customer engagement  
+- Handled 1-on-1 upselling conversations with a focus on maximizing purchase rates and client retention  
+- Designed structured messaging systems and scripts for repetitive communication workflows
+
+---
+
+## 🧪 Projects
+
+### DevFolio – Full-Stack Developer Platform  
+*Django, SQLite, HTML/CSS*  
+- Built a community-driven social platform with project submissions, commenting, voting, and messaging  
+- Designed a modular REST API and enabled seamless switching between SQLite and PostgreSQL  
+- Implemented custom theming using raw CSS for UI consistency
+
+### Pharmacy Prescription Processing System  
+*Academic capstone – Django, SQLite*  
+- Designed prescription workflow integrating patient history, allergy checks, and credential validation  
+- Simulated integration with external systems (insurance, medical chamber, doctor registry)  
+- Built pharmacist interface for manual override of drug interaction failures
+
+### CV Auto-Matcher & Job Scraper *(In Progress)*  
+*Python, Flask, LLM API*  
+- Scrapes job boards and extracts job requirements, skills, and descriptions  
+- Uses NLP and keyword matching to tailor CVs automatically based on job post analysis  
+- Future features: ATS compliance check, PDF output, dashboard UI
+
+### FocusTrackr *(In Progress)*  
+*Flask, Bootstrap*  
+- Combines Pomodoro timer with note-taking and quizzing for productivity  
+- Implements persistent user sessions and REST-based interaction logging
+
+---
+
+## 🎓 Education
+
+**B.Sc. in Information Technology – Software Engineering**  
+Educons University, Novi Sad, Serbia  
+📅 Expected Graduation: Summer 2026 | 🎓 GPA: 8.79 / 10  
+📜 Certifications: CS50x, CS50p, CS50w (Harvard University)
+
+---
+
+## 🏆 Additional Highlights
+
+- Finalist – Software Systems Capstone Jury (Pharmacy Project)  
+- Languages: English (fluent), Serbian (native)  
+- Working on personal portfolio site and live deployments of backend projects
