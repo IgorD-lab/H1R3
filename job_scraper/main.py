@@ -1,105 +1,55 @@
-# Orchestrator
+import logging
+import json
 
-# Helloworld job scraper
-import requests
-from bs4 import BeautifulSoup
-import random
-import pandas as pd
-import time
+from scrapers.helloworld import HelloWorldScraper
 
 
-header = headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+def main():
+    logging.basicConfig(level=logging.INFO)
+    keyword = input("Enter keyword to search for jobs: ").strip()
 
-# Get user input for job search keyword
-keyword = input("Enter keyword to search for jobs: ").strip()
+    scrapers = [
+        HelloWorldScraper(keyword),
+        # OtherSiteScraper(keyword),
+        # Add more scrapers here
+    ]
 
-# Search parameters
-scope = "full"
-page_number = 0  # Use integer for page number
+    all_links = []
+    for scraper in scrapers:
+        try:
+            links = scraper.scrape_job_links()
+            all_links.extend(links)
+        except Exception as e:
+            logging.error(f"Error scraping links: {e}")
 
-base_url = "https://helloworld.rs/oglasi-za-posao/programiranje?"
+    total_jobs = len(all_links)
+    print(f"\nFound {total_jobs} jobs in total.")
+    if total_jobs == 0:
+        print("No jobs found. Exiting.")
+        return
 
-# Build search parameters string
-if keyword:
-    search_parameters = f"q={keyword}&scope={scope}"
-else:
-    search_parameters = ""
+    proceed = input("Do you want to proceed and fetch job details? (y/n): ").strip().lower()
+    if proceed != 'y':
+        print("Aborted by user.")
+        return
 
-# Construct search URL
-if keyword:
-    search_url = f"{base_url}{search_parameters}"
-else:
-    search_url = base_url
+    all_details = []
+    for scraper in scrapers:
+        # Filter links for this scraper's domain
+        scraper_links = [job for job in all_links if scraper.domain in job['url']]
+        if not scraper_links:
+            continue
+        try:
+            details = scraper.scrape_job_details(scraper_links)
+            all_details.extend(details)
+        except Exception as e:
+            logging.error(f"Error scraping job details: {e}")
 
-# Construct paginated URL
-if keyword:
-    paginated_url = (
-        f"{base_url}page={page_number}&{search_parameters}&disable_saved_search=1"
-    )
-else:
-    paginated_url = f"{base_url}page={page_number}&disable_saved_search=1"
+    # Output as JSON
+    output_file = "./models/jobs_output.json"
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(all_details, f, ensure_ascii=False, indent=2)
+    print(f"\nJob details written to {output_file}")
 
-print("Search URL:", search_url)
-print("Paginated URL:", paginated_url)
-
-# Example job ID and job URL
-job_id = "669397"
-job_url = f"https://helloworld.rs/posao/a/a/{job_id}?disable_saved_search=1"
-
-print("Job URL:", job_url)
-
-
-
-# GET LINKS ======================
-
-
-# print(soup.prettify())
-
-total_jobs = 0
-job_links = []
-
-while True:
-
-        if keyword:
-            paginated_url = (
-                f"{base_url}page={page_number}&{search_parameters}&disable_saved_search=1"
-            )
-        else:
-            paginated_url = f"{base_url}page={page_number}&disable_saved_search=1"
-
-        job_count = 0
-        time.sleep(random.uniform(1, 3))
-        response = requests.get(paginated_url, headers=headers)
-        print("Response status code:", response.status_code)
-        if response.status_code == 200:
-            all_job_html = response.text
-            soup = BeautifulSoup(all_job_html, 'html.parser')
-
-            job_elements = soup.find_all(attrs={"data-job-id": True})
-            for elem in job_elements:
-                job_id = elem["data-job-id"]
-                print("Found job ID:", job_id)
-                # Build Job URL
-                job_url = f"https://helloworld.rs/posao/a/a/{job_id}?disable_saved_search=1"
-                
-                if job_url not in job_links:
-                    job_links.append(job_url)
-                    job_count += 1
-                    total_jobs += 1
-                    print("Job URL:", job_url)
-            if job_count == 0:
-                print("No more jobs found. Exiting loop.")
-                break
-        else:
-            print("Failed to fetch the job listings page.")
-            
-        page_number += 30
-
-
-with open("job_postings.txt", "w") as file:
-    file.write("Paginated URL: " + paginated_url + "\n")
-    file.write("Total Jobs: " + str(total_jobs) + "\n")
-    for link in job_links:
-        file.write(link + "\n")
-
-        
+if __name__ == "__main__":
+    main()

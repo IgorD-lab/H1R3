@@ -1,28 +1,24 @@
-﻿import logging
-from helloworld import HelloWorldScraper
-# from scrapers.other_site import OtherSiteScraper
+﻿from typing import List, Dict
 
-def main():
-    logging.basicConfig(level=logging.INFO)
-    keyword = input("Enter keyword to search for jobs: ").strip()
+class BaseScraper:
+    """
+    Abstract base class for job scrapers.
+    """
+    def __init__(self, keyword: str):
+        self.keyword = keyword
+        self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
 
-    scrapers = [
-        HelloWorldScraper(keyword),
-        # OtherSiteScraper(keyword),
-        # Add more scrapers here
-    ]
+    def scrape_job_links(self) -> List[Dict]:
+        """
+        Scrape job links from the main board.
+        To be implemented by subclasses.
+        """
+        raise NotImplementedError
 
-    all_jobs = []
-    for scraper in scrapers:
-        jobs = scraper.scrape_jobs()
-        all_jobs.extend(jobs)
+    def scrape_job_details(self, jobs: List[Dict]) -> List[Dict]:
+        """
+        Scrape job details for each job link.
+        To be implemented by subclasses.
+        """
+        raise NotImplementedError
 
-    # TODO: Pass jobs to AI filter, extract keywords, update CV, etc.
-
-    with open("job_postings.txt", "w") as file:
-        for job in all_jobs:
-            file.write(f"Found: {len(all_jobs)} jobs.\n")
-            file.write(f"{job['url']}\n")
-
-if __name__ == "__main__":
-    main()
