@@ -36,30 +36,32 @@ class HelloWorldScraper(BaseScraper):
         job_links = []
         seen_urls = set()
         page_number = 0
-        while True:
-            url = self.build_url(page_number)
-            time.sleep(random.uniform(1, 3))
-            try:
-                resp = requests.get(url, headers=self.headers, timeout=10)
-                if resp.status_code != 200:
-                    logging.warning(f"Failed to fetch {url}")
+        with tqdm(desc="Scraping job links", unit="page") as pbar:
+            while True:
+                url = self.build_url(page_number)
+                time.sleep(random.uniform(1, 3))
+                try:
+                    resp = requests.get(url, headers=self.headers, timeout=10)
+                    if resp.status_code != 200:
+                        logging.warning(f"Failed to fetch {url}")
+                        break
+                    soup = BeautifulSoup(resp.text, 'html.parser')
+                    jobs = soup.find_all(attrs={"data-job-id": True})
+                    if not jobs:
+                        break
+                    for elem in jobs:
+                        job_id = elem.get("data-job-id")  # type: ignore
+                        if not job_id:
+                            continue
+                        job_url = f"https://helloworld.rs/posao/a/a/{job_id}?disable_saved_search=1"
+                        if job_url not in seen_urls:
+                            job_links.append({"url": job_url})
+                            seen_urls.add(job_url)
+                    page_number += 30
+                    pbar.update(1)
+                except Exception as e:
+                    logging.error(f"Error scraping links from {url}: {e}")
                     break
-                soup = BeautifulSoup(resp.text, 'html.parser')
-                jobs = soup.find_all(attrs={"data-job-id": True})
-                if not jobs:
-                    break
-                for elem in jobs:
-                    job_id = elem.get("data-job-id")  # type: ignore
-                    if not job_id:
-                        continue
-                    job_url = f"https://helloworld.rs/posao/a/a/{job_id}?disable_saved_search=1"
-                    if job_url not in seen_urls:
-                        job_links.append({"url": job_url})
-                        seen_urls.add(job_url)
-                page_number += 30
-            except Exception as e:
-                logging.error(f"Error scraping links from {url}: {e}")
-                break
         return job_links
 
     def scrape_job_details(self, jobs: List[Dict]) -> List[Dict]:
@@ -83,17 +85,8 @@ class HelloWorldScraper(BaseScraper):
                 description = ""
                 if desc_elem:
                     for child in desc_elem.children:
-                        if getattr(child, 'name', None) == "h3":
-                            description += f"\n{child.get_text(strip=True).upper()}\n"
-                        elif getattr(child, 'name', None) == "p":
-                            text = child.get_text(strip=True)
-                            if text:
-                                description += f"{text}\n"
-                        elif getattr(child, 'name', None) in ("ul", "ol"):
-                            for li in child.find_all("li", recursive=False):
-                                li_text = li.get_text(strip=True)
-                                if li_text:
-                                    description += f"- {li_text}\n"
+                        text = child.get_text(strip=True)
+                        description += text
                 else:
                     description = "No Description Found"
                 description = description.strip()
