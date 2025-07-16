@@ -45,12 +45,6 @@ def main() -> List[Dict]:
             all_details.extend(details)
         except Exception as e:
             logging.error(f"Error scraping job details: {e}")
-
-    # Output as JSON
-    output_file = "./job_scraper/models/jobs_output.json"
-    with open(output_file, "w", encoding="utf-8") as f:
-        json.dump(all_details, f, ensure_ascii=False, indent=2)
-    print(f"\nJob details written to {output_file}")
     
     return all_details
     
