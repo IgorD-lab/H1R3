@@ -72,7 +72,7 @@ H1R3/
 │   ├── utils/          # Helper modules (HTTP client, parser, anti-detection).
 │   └── config/         # Site-specific configuration files (YAML).
 │
-├── data/               # Contains local data files (e.g., CV.txt).
+└── data/               # Contains local data files (e.g., CV.txt).
 
 ```
 
