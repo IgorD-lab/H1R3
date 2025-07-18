@@ -73,7 +73,7 @@ H1R3/
 │   └── config/         # Site-specific configuration files (YAML).
 │
 ├── data/               # Contains local data files (e.g., CV.txt).
-└── notes/              # Developer notes and ideas.
+
 ```
 
 ## How It Works
