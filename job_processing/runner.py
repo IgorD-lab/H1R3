@@ -3,7 +3,7 @@ from .daemon import DoomDaemon
 import json
 
 
-def main(cv_text, jobs_json_path, output_path):
+def main(cv_text, jobs_json_path, output_path, ai_limit="None"):
     daemon = DoomDaemon()
     daemon.start()
     try:
@@ -13,7 +13,7 @@ def main(cv_text, jobs_json_path, output_path):
             jobs = json.load(f)
 
         results = []
-        for job in jobs[0:1]:
+        for job in jobs[:ai_limit] if ai_limit != "None" else jobs:
             job_title = job["title"]
             job_text = job["description"]
             job_tags = job["tags"]

@@ -30,7 +30,7 @@ proceed_AI = input("Do you wish to run jobs through AI? (y/n): ").lower().strip(
 if proceed_AI != "y":
     print("Goodbye")
 else:
-    runner.main(cv_text, jobs_output_file, ai_output_path)
+    runner.main(cv_text, jobs_output_file, ai_output_path, ai_limit=1)
 
 
 
