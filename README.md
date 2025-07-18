@@ -18,7 +18,7 @@ This project is a job scraper and AI evaluation tool written in Python. It scrap
 1. **Clone the Repository:**
 
     ````bash
-    git clone <repository-url>
+    git clone https://github.com/IgorD-lab/H1R3.git
     cd H1R3
     ````
 
