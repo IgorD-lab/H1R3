@@ -11,7 +11,7 @@ This project is a job scraper and AI evaluation tool written in Python. It scrap
   - Download and install [Ollama](https://ollama.ai).
   - Pull the `llama3:instruct` model using Ollama.  
   - **System Requirements:** Ensure your system meets the hardware/software demands for running the local LLM.  
-  - **Change Model:** If you want to switch the model, update the call in [runner.py](c:\Users\PC\Desktop\H1R3\job_processing\runner.py) where `DoomModel` is instantiated (e.g., `DoomModel("your_model")`).
+  - **Change Model:** If you want to switch the model, update the call in [runner.py] where `DoomModel` is instantiated (e.g., `DoomModel("your_model")`).
 
 ## Installation
 
@@ -49,7 +49,7 @@ This project is a job scraper and AI evaluation tool written in Python. It scrap
 
     - **Job Title Keyword:** When prompted, input the job title keyword that you are looking for.
     - **Job Scraping Confirmation:** After displaying the number of scraped jobs (which could be high), you'll be asked if you want to proceed. This gives you an option to cancel if the number is too large.
-    - **AI Evaluation Confirmation:** Finally, confirm if you want to run the AI evaluation on the scraped jobs. This step involves sending your CV and job description to the local AI model and can take some time.
+    - **AI Evaluation Confirmation:** Finally, confirm if you want to run the AI evaluation on the scraped jobs. This step involves sending your CV and job description to the local AI model and can take some time (prepare some netflix shows to watch if you start the process with number of jobs greater then 30 since default llama3:instruct is very slow)
 
 ## File Structure
 
@@ -79,31 +79,67 @@ H1R3/
 ## How It Works
 
 1. **Load Configuration & CV:**  
-   [main.py](c:\Users\PC\Desktop\H1R3\main.py) loads configuration paths from [config.py](c:\Users\PC\Desktop\H1R3\config.py) and reads your CV from the specified file (or via prompt if not found).
+   [main.py] loads configuration paths from [config.py] and reads your CV from the specified file (or via prompt if not found).
 
 2. **Job Scraping:**  
-   The scraper ([job_scraper/main_scraper.py](c:\Users\PC\Desktop\H1R3\job_scraper\main_scraper.py)) asks for a job title keyword, scrapes job links from supported sources (currently only Helloworld.rs), and displays the total job count before prompting for confirmation.
+   The scraper [job_scraper/main_scraper.py] asks for a job title keyword, scrapes job links from supported sources (currently only Helloworld.rs), and displays the total job count before prompting for confirmation.
 
 3. **AI Evaluation:**  
-   After scraping, on confirmation, the program calls the AI evaluator ([job_processing/runner.py](c:\Users\PC\Desktop\H1R3\job_processing\runner.py)), which uses [DoomModel](c:\Users\PC\Desktop\H1R3\job_processing\wrapper.py) (based on `llama3:instruct`) to assess your job compatibility.
+   After scraping, on confirmation, the program calls the AI evaluator [job_processing/runner.py], which uses [DoomModel] (based on `llama3:instruct`) to assess your job compatibility.
 
 ## TODO / Future Improvements
 
-- **Extend Scrapers:** Implement scrapers for LinkedIn and Indeed.
-- **Model Flexibility:**  
-  - Provide an option to modify the local LLM model.
-  - Support GPT API tokens for faster responses (with potential cost concerns).
-- **Selective Processing:**  
-  - Allow processing of specific jobs through the AI.
-  - Enable selection of which scraped jobs to process.
-- **Post-AI Processing:** Automatically output a tailored CV for the selected jobs.
-- **Additional Filtering:** More filtering options & a tracker to store job postings and corresponding CV submissions.
-- **UI Development:** Consider building a web or desktop interface (possibly via Docker) – volunteer help for GUI development is welcome!
+### Core Features
 
-## License
-
-This project is under the [MIT License](LICENSE) (if applicable).
+- [x] Scrape jobs from Helloworld.rs
+- [ ] Implement all scrapers:
+  - [x] Helloworld.rs
+  - [ ] Indeed
+  - [ ] LinkedIn
+- [x] Run local LLM (`llama3:instruct`) via Ollama for AI evaluation
+- [ ] 🔲 Support OpenAI GPT API tokens for cloud-based evaluation (⚠️ cost-aware)
 
 ---
 
-Happy coding!
+### Model Configuration & Evaluation Flow
+
+- [x] Allow model name to be changed in `runner.py` (via `DoomModel("model_name")`)
+- [ ] Add CLI or config-based model selection
+- [ ] Cache LLM evaluations to avoid redundant processing
+- [ ] Add multi-threading or batching for faster AI evaluation
+
+---
+
+### Job Selection & Processing
+
+- [ ] Enable selection of specific jobs to process through AI
+- [ ] Allow filtering or tagging of job posts before processing
+- [ ] Create a local job tracker with status (e.g., Scraped / Evaluated / Applied)
+
+---
+
+### Post-Processing
+
+- [ ] Auto-generate tailored CVs for each evaluated job
+- [ ] Output evaluation summary as CSV/Markdown/HTML
+
+---
+
+### UX & Interface
+
+- [x] Prompt user for job keyword
+- [x] Confirm job scraping & evaluation steps
+- [ ] 🧪 Add `--no-emoji` / `--silent` mode for terminal output
+- [ ] 🖥️ Develop a basic GUI (web or desktop)
+- [ ] 🐳 Provide Dockerized deployment for easy setup
+
+---
+
+### 🧪 Testing & Maintenance
+
+- [x] Validate file paths and handle missing input files more gracefully
+- [ ] Add unit tests for scraper modules
+- [ ] Implement mock AI for faster testing without LLM
+
+---
+
