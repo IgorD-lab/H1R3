@@ -44,3 +44,5 @@ class DoomDaemon:
             self.process = None
         else:
             print("Ollama was not summoned by this session. Skipping termination.")
+            
+            

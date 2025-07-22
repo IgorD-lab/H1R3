@@ -65,3 +65,5 @@ if __name__ == "__main__":
     jobs_json_path = "./job_scraper/models/jobs_output.json"
     output_path = "./job_processing/match_results.json"
     main(cv_text, jobs_json_path, output_path)
+    
+    

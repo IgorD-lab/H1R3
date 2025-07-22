@@ -107,3 +107,5 @@ class HelloWorldScraper(BaseScraper):
                 logging.error(f"Error scraping details for {url}: {e}")
                 continue
         return detailed_jobs
+    
+    

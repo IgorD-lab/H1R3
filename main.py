@@ -29,15 +29,16 @@ def main():
     # Scrape jobs
     jobs = main_scraper.main()
     save_job_data(jobs, jobs_output)
-    print(f"\n✅ Job details saved to {jobs_output}")
-    print("🔍 Job scraping complete.")
+    print(f"\nJob details saved to {jobs_output}")
+    print("Job scraping complete.")
 
     # Ask to proceed
-    proceed = input("🤖 Run AI evaluation on the scraped jobs? (y/n): ").lower().strip()
+    proceed = input("Run AI evaluation on the scraped jobs? (y/n): ").lower().strip()
     if proceed == "y":
         runner.main(cv_text, jobs_output, ai_output)
     else:
-        print("👋 Exiting without AI evaluation.")
+        print("Exiting without AI evaluation.")
 
 if __name__ == "__main__":
     main()
+
