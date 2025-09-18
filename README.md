@@ -124,6 +124,38 @@ H1R3/
 
 ---
 
-## Roadmap
+### 🛠️ Contributing
 
-H1R3 is functional today but evolving into a broader job-matching platform with expanded scrapers, better performance, and polished user experience. Contributions are welcome.
+H1R3 is still in early development, and contributions are welcome!
+If you’d like to help, here are some areas that need attention:
+
+* **Scrapers**: Add support for more job boards (Indeed, LinkedIn, Glassdoor, etc.)
+* **Evaluation Engine**:
+
+  * Batch processing and caching to reduce LLM evaluation time
+  * Configurable scoring metrics (semantic similarity, keyword overlap, etc.)
+* **Data Handling**:
+
+  * Standardize scraped job data format
+  * Add persistence layer (SQLite or PostgreSQL)
+* **User Interface**:
+
+  * Export results to CSV/Markdown/HTML
+  * Basic web or desktop GUI
+* **Deployment**:
+
+  * Docker setup for easier environment replication
+  * Optional OpenAI GPT integration for cloud evaluation
+* **Testing**:
+
+  * Unit tests for scrapers
+  * Mock AI interface for faster dev cycles
+
+---
+
+### 📌 Roadmap
+
+* **MVP (current)** – CV parsing, job scraping (Helloworld.rs), AI-based matching
+* **Next** – Expand scrapers, optimize evaluation, basic exports
+* **Later** – GUI, cloud deployment, job tracker, CV auto-tailoring
+
