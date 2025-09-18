@@ -127,20 +127,3 @@ H1R3/
 ## Roadmap
 
 H1R3 is functional today but evolving into a broader job-matching platform with expanded scrapers, better performance, and polished user experience. Contributions are welcome.
-
----
-
-```
-
----
-
-This version:  
-- **Emphasizes working features** up front  
-- Keeps tone professional (no “Netflix jokes”)  
-- Clearly separates *Current, In Progress, Planned*  
-- Makes limitations explicit so expectations are set  
-
----
-
-Do you want me to also **tighten the TODO list** into GitHub “Issues” format (checkboxes) so it looks like you’re managing the project properly in a dev workflow? That might impress technical recruiters even more.
-```
